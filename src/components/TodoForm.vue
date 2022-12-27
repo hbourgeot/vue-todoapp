@@ -1,15 +1,27 @@
 <template>
-  <form action="post" class="input-field">
+  <form action="post" class="input-field" @submit.prevent="resetAndAdd">
     <label :for="input_name">{{ lb_name }}</label>
-    <input type="text" :name="input_name" :id="input_name" />
+    <input type="text" :name="input_name" :id="input_name" v-model="newTask" />
     <button type="submit" class="btn-primary">Add ToDo</button>
   </form>
 </template>
 
 <script>
 export default {
-  props: ["lb_name", "input_name"],
+  props: {
+    lb_name: String,
+    input_name: String,
+    saveData: Function,
+    addItem: Function,
+  },
+  methods: {
+    resetAndAdd: function () {
+      this.addItem(this.newTask);
+      document.querySelector(`#${this.input_name}`).value = "";
+    },
+  },
 };
+// TODO: Make a click event to push to array the tasks
 </script>
 
 <style lang="scss">

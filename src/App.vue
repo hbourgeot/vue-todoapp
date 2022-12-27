@@ -1,15 +1,45 @@
 <script>
 import TodoForm from "./components/TodoForm.vue";
 import TodoList from "./components/TodoList.vue";
-
+import { ref } from "vue";
 export default {
   components: {
     TodoForm,
     TodoList,
   },
-  data: function () {
+  setup() {
+    const defaultTodo = [{ done: false, content: "Create this project" }];
+    const todoData = JSON.parse(localStorage.getItem("todos")) || defaultTodo;
+    const todos = ref(todoData);
+
+    function addItem(newTask) {
+      if (newTask) {
+        todos.value.push({ done: false, content: newTask });
+      }
+
+      newTask = "";
+      saveData();
+    }
+    function saveData() {
+      localStorage.setItem("todos", JSON.stringify(todos.value));
+    }
+
+    function removeTodo(index) {
+      todos.value.splice(index, 1);
+      saveData();
+    }
+
+    function doneTodo(todo) {
+      todo.done = !todo.done;
+      saveData();
+    }
+
     return {
-      todos: ["Work in this project", "Make a commit"],
+      todos,
+      addItem,
+      saveData,
+      removeTodo,
+      doneTodo,
     };
   },
 };
@@ -17,9 +47,14 @@ export default {
 
 <template>
   <h1>ToDoApp</h1>
-  <TodoForm lb_name="New Task" input_name="new_task" />
+  <TodoForm
+    lb_name="New Task"
+    input_name="newTask"
+    :addItem="addItem"
+    :saveData="saveData"
+  />
   <h2>ToDoList</h2>
-  <TodoList :todo="todos" />
+  <TodoList :todo="todos" :removeTodo="removeTodo" :doneTodo="doneTodo" />
 </template>
 
 <style lang="scss">
@@ -42,7 +77,7 @@ body {
 }
 
 #app {
-  width: 85%;
+  width: min(600px, 85%);
   margin: 0 auto;
 }
 </style>
