@@ -46,14 +46,14 @@ export default {
 </script>
 
 <template>
-  <h1>ToDoApp</h1>
+  <h1>ToDo App</h1>
   <TodoForm
     lb_name="New Task"
     input_name="newTask"
     :addItem="addItem"
     :saveData="saveData"
   />
-  <h2>ToDoList</h2>
+  <h2>ToDo List</h2>
   <TodoList :todo="todos" :removeTodo="removeTodo" :doneTodo="doneTodo" />
 </template>
 

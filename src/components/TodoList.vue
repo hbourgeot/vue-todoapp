@@ -60,7 +60,7 @@ export default {
 }
 
 .btns {
-  width: 22%;
+  width: fit-content;
   display: flex;
   justify-content: space-between;
   gap: 5px;

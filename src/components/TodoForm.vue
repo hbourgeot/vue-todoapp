@@ -2,7 +2,7 @@
   <form action="post" class="input-field" @submit.prevent="resetAndAdd">
     <label :for="input_name">{{ lb_name }}</label>
     <input type="text" :name="input_name" :id="input_name" v-model="newTask" />
-    <button type="submit" class="btn-primary">Add ToDo</button>
+    <button type="submit" class="btn-primary">Add Task</button>
   </form>
 </template>
 
@@ -45,6 +45,7 @@ input {
 .btn-primary {
   background-color: #a0a4d9;
   border: 1px solid #a0a4d9;
+  border-radius: 5px;
   color: #1f2023;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 18px;
